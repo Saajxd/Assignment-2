@@ -1,0 +1,51 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "A simple radial chart with embedded data.",
+  "background": "transparent",
+  "data": {
+    "url": "https://raw.githubusercontent.com/Saajxd/H-W-week-09/main/Revised_Radial_Dataset_3.csv"
+  },
+  "width": 500,
+  "height":400,
+  "params": [
+ {
+ "name": "Country_selection",
+ "bind": {
+ "input": "select",
+ "options": [
+   null,
+  "Finland",
+ "Malaysia",
+ "Australia",
+ "S. Sudan"  
+ ],
+ "labels":[
+   "Show All",
+ "Finland",
+ "Malaysia",
+ "Australia",
+ "S. Sudan"      
+ ],
+ "name": "Country selection: "
+ }
+ }
+ ],
+ "transform": [
+ {"filter": "Country_selection == null|| datum.Country == Country_selection"}],
+  "layer": [{
+    "mark": {"type": "arc", "innerRadius": 20, "stroke": "#fff"}
+  },{
+    "mark": {"type": "text", "radiusOffset": 20},
+    "encoding": {
+      "text": {"field": "value", "type": "quantitative"}
+    }
+  }],
+  "encoding": {
+    "theta": {"field": "value", "type": "quantitative", "stack": true},
+    "radius": {"field": "value", "scale": {"type": "sqrt", "zero": true, "rangeMin": 50}},
+    "color": {"field": "Factors", "type": "nominal"}, "tooltip":[{"field": "Country","type": "nominal"},
+            {"field": "Factors","type": "nominal"},
+            {"field": "value", "type": "quantitative"}]
+  }
+}
+

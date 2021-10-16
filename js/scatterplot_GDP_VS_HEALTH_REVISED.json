@@ -1,0 +1,81 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
+  "data": {
+      "url": "https://raw.githubusercontent.com/Saajxd/H-W-week-09/main/2019.csv"},
+  "params": [
+  {
+  "name": "GDP_Score_Above",
+  "value": 0,
+  "bind": {
+  "input": "range",
+  "min": 0,
+  "max": 1.67,
+  "step": 0.01,
+  "name": "Minimum GDP: "
+  }
+  }
+  ],  
+  "transform": [
+       {"filter": "datum.GDP_per_capita > 0"},
+       {"filter": "datum.GDP_per_capita > GDP_Score_Above"}
+  ],
+  "encoding": { 
+          "x": {
+          "field": "GDP_per_capita",
+          "type": "quantitative",
+          "title":"GDP per capita"
+          },
+          "y": {
+              "field": "Healthy_life_expectancy",
+              "type": "quantitative",
+              "title": "Healthy life expectancy"
+          }
+  },  
+  "layer":[  {
+      "mark": {"type":"point"},
+      "params": [{"name": "paintbrush", "select": {"type":"point", "on":"mouseover"}}],
+      "width": 500,
+      "height": 400,
+      "encoding": {
+          "color": {
+                  "condition": {
+                  "param": "paintbrush",
+                  "field": "", "type": "ordinal"
+      },
+      "value": "grey"
+    },
+    "size": {
+      "condition": {"param": "paintbrush", "empty": false, "value": 80},
+      "value": 20
+    },
+        "tooltip": [
+      {"field": "Country", "type": "nominal"},
+      {"field": "Healthy_life_expectancy", "type": "quantitative", "format": ","},
+      {"field": "GDP_per_capita", "type": "quantitative", "format": ","},
+      {"field": "Social_support", "type": "quantitative", "format": ","}
+      ]
+      }
+  },
+{
+"mark":{"type":"line",
+"color":"firebrick"},
+"transform": [
+{
+  "regression": "Healthy_life_expectancy",
+  "on": "GDP_per_capita"   
+}],
+  "encoding": {
+    "x": {
+      "field": "GDP_per_capita",
+      "type": "quantitative"
+    },
+    "y": {
+      "field": "Healthy_life_expectancy",
+      "type": "quantitative"
+    }
+    
+  }
+}]   
+}
+         

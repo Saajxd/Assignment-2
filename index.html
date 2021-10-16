@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
+   <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+<title>Page Title</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 675px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column2 {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 875px; /* Should be removed. Only for demonstration */
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.t2{
+  text-align: center;
+  padding: 20px;
+  font-size: 20px;
+}
+
+.t3{
+  text-align: center;
+  padding: 2.5px;
+}
+
+/* Style the body */
+body {
+  font-family: Arial;
+  margin: 0;
+  /* background: #555; */
+}
+
+/* Column container */
+.row {  
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Create two unequal columns that sits next to each other */
+/* Sidebar/left column */
+.side {
+  flex: 10%; /* Set the width of the sidebar */
+  background-color: #424249cb; /* Grey background color */
+  color: white;
+  padding: 20px; /* Some padding */
+}
+
+/* Main column */
+.main {
+  flex: 90%; /* Set the width of the main content */
+  background-color: white; /* White background color */
+  padding: 20px; /* Some padding */
+}
+
+/* Header/Logo Title */
+.header {
+  padding: 30px;
+  text-align: center;
+  background: #424249;
+  color: white;
+  font-size: 30px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="header" style="font-family: Helvetica;">
+  <h1>World Happiness Report 2019</h1>
+  <p>A Comprehensive Overview</p>
+</div>
+
+<div class="row">
+  <div class="side">
+    <h2>Mohamed Saajid</h2>
+    <h5>Monash ID: 29859875</h5>
+
+  </div>
+  <div class="main" style = "background-color:rgba(184, 181, 181, 0.76);">
+    <div class = "p1" style = "text-align: left; padding: 5px; margin: 25px; font-family: 'Open sans', sans-serif;">
+    <h2>Introduction</h2>
+    <p>
+      The World Happiness Report is a landmark survey of the state of global happiness that ranks 156 
+      countries by how happy their citizens perceive themselves to be. The World Happiness Report 2019
+      focuses on happiness and the community, with a focus on the technologies, social norms, conflicts 
+      and government policies that have driven those changes.
+      The happiness scores and rankings use data from the Gallup World Poll. 
+      The scores are based on answers to the main life evaluation question asked in the poll. 
+      This question, known as the Cantril ladder, asks respondents to think of a ladder with the best 
+      possible life for them being a 10 and the worst possible life being a 0 and to rate their own current 
+      lives on that scale. The scores are from nationally representative samples for the year 2019 and 
+      use the Gallup weights to make the estimates representative. 
+    </p>
+    <div class = "choropleth_map_style", style = "text-align: center;">
+      <h2>World Happiness Score</h2>
+      <div id="choropleth_map" style="height:200px;"></div>
+    <p style="text-align: left; margin-left: 270px; margin-right: 350px;">
+      The above choropleth map shows all the countries in the world colour coded according to there happiness ranking
+    </p>
+    <p style="text-align: left; margin-left: 270px; margin-right: 350px;">
+      A higher score leads to a darker shade, while a lower scoring countries can be seen with a lighter shade. Countries 
+      with no data present are greyed out.  
+    </p>
+    <p style="text-align: left;margin-left: 270px;margin-right: 350px;">
+      <b>Finland scores the highest</b> amongst all the countries, while <b>South Sudan scores the lowest.</b> In a general landscape
+      we can see that countries with a strong economy results in a higher happiness score.
+    </p>
+    </div>
+    <br>
+    <div class="column" style="background-color:rgba(184, 181, 181, 0.76); text-align: center;">
+      <h2>Economy Vs Happiness Score</h2>
+      <div id="scatter_GDP_VS_SCORE_REVISED"></div>
+      <p style="text-align: left;">
+        The above scatterplot depicts the correlation between Economy and Happiness Score.
+        It can be observed that there is a <b>positive correlation </b>between the two factors. This means that
+        as a countries GDP increases, so does the Happiness Score. The main reason for this 
+        would be as GDP increases, so does the overall ability of the countries ability to develop in terms 
+        of infrastructure, security and other systems. This in turn leads to higher employment rates
+        and increase in quality of life leading to happier citizens.
+      </p>
+    </div>
+    <div class="column" style="background-color:#bbb; text-align: center; margin-bottom: 30px;">
+      <h2>Economy Vs Healthy Life Expectancy</h2>
+      <div id="scatter_GDP_VS_HEALTH_REVISED"></div>
+      <p style="text-align: left;">
+         The above scatterplot depicts the correlation between Economy and Healthy Life Expectancy.
+         It can be observed that there is a <b>positive correlation </b>between the two factors. This means that
+         as a countries GDP increases, so does the Healthy Life Expectancy. The main reason for this 
+         would be as GDP increases, so does the overall ability of the countries ability to develop its healthcare
+         system. 
+      </p>
+    </div>
+    <br>
+    <div class="t2"> 
+      <u>
+        <h2>Analysis on the happiest countries in the world along with the factors that affect happiness score
+        </h2>
+      </u>
+    </div>
+    <div class="column2" style="background-color:#bbb; text-align: center;">
+      <h2>Happiest Countries In The World</h2>
+      <div id="bar_chart"></div>
+      <p style="text-align: left;">
+        The above bar chart shows the <b>top 10 happiest countries </b>in the world.
+        The slider can be used moved left or right depending on the happiest countries by rank that you
+        are interested in seeing.
+      </p>
+      <p style="text-align: left;">
+         Finland holds the number 1 position as being the happiest country in the world.
+         This is mainly due to the low crime rates and universal health care system.
+         All things combined, allows most Fins to enjoy a high standard of living, resulting
+         in a higher happiness score.  
+      </p>
+    </div>
+    <div class="column2" style="background-color:#bbb; text-align: center; margin-bottom: 30px;">
+      <h2>Factors Affecting Happiness Score</h2>
+      <div id="Radial_Chart"></div>
+      <div class = "p6" style="padding: 65px;"> 
+        <p style="text-align: left;">
+        The above radial chart depicts the proportions of factors that
+        affect a country's happiness score. Countries of interest can be selected from the 
+        <b>drop down menu</b> </p>
+        <p style="text-align: left;">It comprises of the following factors
+          <ul>
+            <li style="color:#4c78a8; text-align: left;">Freedom to make life choices</li>
+            <li style="color:#f68418; text-align: left;">GDP Per Capita</li>
+            <li style="color:#e45756; text-align: left;">Generosity</li>
+            <li style="color:#72b8b2; text-align: left;">Healthy Life Expectancy</li>
+            <li style="color:#54a24b; text-align: left;">Perceptions of Corruption</li>
+            <li style="color:#eeca3b; text-align: left;">Social Support</li>
+          </ul>
+          <p style="text-align: left;">
+            <b>Finland </b>being the happiest country in the world in 2019
+          shows that having a high social score contributed the most to the happiness score
+        </p>
+      </div>
+      
+    </div>
+    <br>
+    <div class="t3" style="text-align: left;"> 
+      <h2>Conclusion</h2>
+      <p style="text-align:left;">
+        In conclusion, we can see that the highest happiest score belongs to Finland while 
+        the lowest happiness score belongs to South Sudan. Moreover we also saw that there is a
+        positive correlation between Gross Domestic Product (GDP) of a country and its happiness score.
+        We also looked at the top 10 happiest countries in the world, while also identifying the six main factors
+        that affect them. 
+      </p>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+  var spec2 = "js/choropleth_map.vg.json";
+  var spec3 = "js/scatterplot_GDP_VS_SCORE_REVISED.json"
+  var spec4 = "js/scatterplot_GDP_VS_HEALTH_REVISED.json"
+  var spec5 = "js/bar_chart.json"
+  var spec6 = "js/Radial_Chart.json"
+
+  vegaEmbed('#choropleth_map', spec2).then(function(result) {
+    // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+  }).catch(console.error);
+
+  vegaEmbed('#scatter_GDP_VS_SCORE_REVISED', spec3).then(function(result) {
+    // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+  }).catch(console.error);
+
+  vegaEmbed('#scatter_GDP_VS_HEALTH_REVISED', spec4).then(function(result) {
+    // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+  }).catch(console.error);
+
+  vegaEmbed('#bar_chart', spec5).then(function(result) {
+    // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+  }).catch(console.error);
+
+  vegaEmbed('#Radial_Chart', spec6).then(function(result) {
+    // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+  }).catch(console.error);
+  </script>
+
+</body>
+</html>

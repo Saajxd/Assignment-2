@@ -1,0 +1,65 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "background": "transparent",
+    "width": 500,
+    "height": 400,
+    "data": {
+      "url": "https://raw.githubusercontent.com/Saajxd/H-W-week-09/main/2019.csv"},
+    "params": [
+      {
+        "name": "highlight",
+        "select": {"type": "point", "on": "mouseover"}
+      },
+      {"name": "select", "select": "point"},
+      {"name": "Rank_Above",
+   "value": 10,
+   "bind": {
+   "input": "range",
+   "min": 1,
+   "max": 10,
+   "step": 1,
+   "name": "Rank: "}}
+    ],
+    "mark": {
+      "type": "bar",
+      "fill": "#4C78A8",
+      "stroke": "black",
+      "cursor": "pointer"
+    },
+    "encoding": {
+      "x": {"field": "Country", "type": "ordinal"},
+      "y": {"field": "Score", "type": "quantitative"},
+      "fillOpacity": {
+        "condition": {"param": "select", "value": 1},
+        "value": 0.3
+      },
+      "strokeWidth": {
+        "condition": [
+          {
+            "param": "select",
+            "empty": false,
+            "value": 2
+          },
+          {
+            "param": "highlight",
+            "empty": false,
+            "value": 1
+          }
+        ],
+        "value": 0
+      },
+      "tooltip": [
+      {"field": "Country", "type": "nominal"},
+      {"field": "Score", "type": "quantitative", "format": ","},
+      {"field": "GDP_per_capita", "type": "quantitative", "format": ","},
+      {"field": "Overall_rank", "type": "quantitative", "format": ","}
+   ]
+    },
+    "transform": [{"filter": "datum.Overall_rank <= Rank_Above"}],
+    "config": {
+      "scale": {
+        "bandPaddingInner": 0.2
+      }
+    }
+  }
+  
